@@ -23,6 +23,7 @@ void leds_clear(int nLEDs) {
 	}
 
 	spi_write(&peripheral, data, data_size);
+	free(data);
 }
 
 void leds_deinit() {

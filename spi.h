@@ -6,6 +6,8 @@
 #define RPI_SPI_MOSI_PIN 10
 #define RPI_SPI_SCLK_PIN  11
 
+#define SPI_BITS_PER_WORD  8
+
 // NOTE
 //  cdiv    speed
 //     2    125.0 MHz

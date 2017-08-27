@@ -15,16 +15,16 @@ static struct spi_ioc_transfer xfer[3] = {
    .rx_buf        = 0,
    .len           = 4,
    .delay_usecs   = 0,
-   .bits_per_word = 8,
+   .bits_per_word = SPI_BITS_PER_WORD,
    .cs_change     = 0 },
  { .rx_buf        = 0, // Color payload
    .delay_usecs   = 0,
-   .bits_per_word = 8,
+   .bits_per_word = SPI_BITS_PER_WORD,
    .cs_change     = 0 },
  { .tx_buf        = 0, // Footer (zeros)
    .rx_buf        = 0,
    .delay_usecs   = 0,
-   .bits_per_word = 8,
+   .bits_per_word = SPI_BITS_PER_WORD,
    .cs_change     = 0 }
 };
 
