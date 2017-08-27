@@ -17,5 +17,6 @@ where L = Brightness
 
 void leds_init();
 void leds_clear();
+void leds_deinit();
 
 #endif  /* _ LEDS_H__ */

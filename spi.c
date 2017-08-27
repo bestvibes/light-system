@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <fcntl.h>
 #include <sys/ioctl.h>
 #include <linux/spi/spidev.h>
 
@@ -46,10 +49,12 @@ void spi_close(spi_config *peripheral) {
 		_spi_error(peripheral);
     }
 
+    printf("SPI closed\n");
+
     return;
 }
 
-void spi_init(spi_config *peripheral, uint8_t sclk_pin, uint8_t mosi_pin, int bitrate) {
+void spi_open(spi_config *peripheral, uint8_t sclk_pin, uint8_t mosi_pin, int bitrate) {
 	// validate input
 	if (sclk_pin != RPI_SPI_SCLK_PIN || mosi_pin != RPI_SPI_MOSI_PIN) {
 		printf("Supports only RPI HW SPI! Set proper SCLK and MOSI pins!\n");
@@ -82,10 +87,9 @@ void spi_init(spi_config *peripheral, uint8_t sclk_pin, uint8_t mosi_pin, int bi
 	}
 
 	// set speed
-	if (ioctl(peripheral->fd, SPI_IOC_WR_MAX_SPEED_HZ, peripheral->bitrate) < 0) {
+	if (ioctl(peripheral->fd, SPI_IOC_WR_MAX_SPEED_HZ, &peripheral->bitrate) < 0) {
 		printf("ioctl: can't set SPI bitrate to %d\n", peripheral->bitrate);
-		close(peripheral->fd);
-		exit(1);
+		_spi_error(peripheral);
 	}
 
 	printf("SPI initialized at %dHz\n", peripheral->bitrate);

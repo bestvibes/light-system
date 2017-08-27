@@ -32,8 +32,8 @@ typedef struct {
 	int fd;
 } spi_config;
 
-void spi_init();
-void spi_write();
-void spi_close();
+void spi_open(spi_config *peripheral, uint8_t sclk_pin, uint8_t mosi_pin, int bitrate);
+void spi_write(spi_config *peripheral, uint8_t *data, int len);
+void spi_close(spi_config *peripheral);
 
 #endif  /* _ SPI_H__ */
